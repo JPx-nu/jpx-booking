@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Skönhetspalatset - Booking System Demo
 
-## Getting Started
+This repository contains the source code for the Skönhetspalatset booking system MVP. It is configured for **Static Export** and can be deployed to GitHub Pages or any static host.
 
-First, run the development server:
+## 🚀 Live Demo URLs
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Once deployed to GitHub Pages (assuming your repo is `jpx-main-site`):
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   **Main App (Landing Page):**
+    `https://JPx-nu.github.io/jpx-main-site/`
+    *(Note: If you configured the basePath to default to `/booking` in production, this might be `.../jpx-main-site/booking/`)*
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-   **Direct Link to Booking Wizard:**
+    `https://JPx-nu.github.io/jpx-main-site/book`
+    *(Or `.../booking/book` depending on the path strategy chosen)*
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 How to Deploy
 
-## Learn More
+### Option 1: Automatic GitHub Pages Demo (Recommended)
+1.  Push this branch (`final-demo-ready`) to GitHub.
+2.  Go to **Settings** > **Pages**.
+3.  Set Source to **GitHub Actions**.
+4.  The site will be live at `https://<username>.github.io/<repo-name>/`.
 
-To learn more about Next.js, take a look at the following resources:
+### Option 2: Integrate into Main Website
+To run this as a standalone "Booking App" inside your main website (e.g., at `yoursite.com/booking`):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1.  **Build Locally:**
+    ```bash
+    cd salon-app
+    npm run build
+    ```
+    *(This uses the default config with `basePath: '/booking'`)*
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2.  **Deploy:**
+    Copy the contents of `salon-app/out/` into the `public/booking/` folder of your main website's repository.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠 Features
+-   **Customer Booking:** Full wizard flow (Service -> Staff -> Time -> Confirm).
+-   **Staff Dashboard:** Weekly schedule management and block-out capabilities.
+-   **No Backend Required:** Runs entirely in the browser using `localStorage`.
