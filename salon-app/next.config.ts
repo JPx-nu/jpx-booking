@@ -2,11 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'export',
-  basePath: '/booking',
+  // Priority: Environment Variable -> Default '/booking'
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '/booking',
   images: {
     unoptimized: true,
   },
-  trailingSlash: true, // Optional: helps with some static hosts
+  trailingSlash: true,
 };
 
 export default nextConfig;
