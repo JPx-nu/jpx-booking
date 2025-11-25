@@ -1,5 +1,4 @@
 import { DataProvider } from '@/contexts/DataContext';
-import { Navbar } from '@/components/Navbar';
 import '@/app/globals.css';
 import { Metadata } from 'next';
 
@@ -18,7 +17,6 @@ export default function RootLayout({
       <body>
         <DataProvider>
             <div className="min-h-screen flex flex-col">
-                <Navbar />
                 <main className="flex-1">
                     {children}
                 </main>
