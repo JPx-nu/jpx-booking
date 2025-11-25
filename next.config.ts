@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: 'export',
   // Priority: Environment Variable -> Default '/booking'
-  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '/booking',
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   images: {
     unoptimized: true,
   },

@@ -26,17 +26,15 @@ jobs:
         with:
           node-version: "20"
           cache: 'npm'
-          cache-dependency-path: salon-app/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Install Dependencies
-        working-directory: ./salon-app
         run: npm ci
 
       - name: Build with Dynamic Base Path
-        working-directory: ./salon-app
         run: npm run build
         env:
           # This automatically sets the base path to /<repo-name> (e.g., /my-salon-demo)
@@ -46,7 +44,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./salon-app/out
+          path: ./out
 
   deploy:
     environment:

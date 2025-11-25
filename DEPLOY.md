@@ -18,16 +18,16 @@ To deploy this app as a sub-section (e.g., `/booking`) of another website:
 1.  **Build the Project:**
     Run the following command locally:
     ```bash
-    # This defaults to basePath: '/booking'
-    npm run build
+    # To build for a specific path (e.g., /booking), set the environment variable:
+    NEXT_PUBLIC_BASE_PATH=/booking npm run build
     ```
 
 2.  **Copy Files:**
     -   Take the contents of the generated `out` folder.
-    -   Paste them into a folder named `booking` in your main website's public directory.
+    -   Paste them into the corresponding folder (e.g., `booking`) in your main website's public directory.
 
 ## Configuration Details
 - **Output Mode:** `export` (Static HTML)
 - **Base Path:**
-    -   Defaults to `/booking` (defined in `next.config.ts`).
+    -   Defaults to `''` (root) (defined in `next.config.ts`).
     -   Overridden to `/<repo-name>` during GitHub Actions build for the demo.
