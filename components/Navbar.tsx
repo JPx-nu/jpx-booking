@@ -7,10 +7,13 @@ import { Scissors, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeSelector } from './ThemeSelector';
+import { LanguageSelector } from './LanguageSelector';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const Navbar = () => {
   const pathname = usePathname();
   const { currentUser, logout } = useData();
+  const { t } = useLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -57,39 +60,46 @@ export const Navbar = () => {
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center gap-10">
-          {[
-            { name: 'Hem', path: '/' },
-            { name: 'Behandlingar', path: '/behandlingar' },
-            { name: 'Om Oss', path: '/om-oss' },
-            { name: 'Kontakt', path: '/kontakt' },
-          ].map((item) => (
-            <Link
-              key={item.path}
-              href={item.path}
-              className={cn(
-                "text-sm uppercase tracking-widest font-medium transition-all duration-300 relative group py-2",
-                isActive(item.path) && item.path !== '/' ? "text-[var(--primary)]" : "text-gray-600 hover:text-[var(--primary)]"
-              )}
-            >
-              {item.name}
-              <span className={cn(
-                "absolute bottom-0 left-0 w-full h-[1px] bg-[var(--primary)] transform scale-x-0 transition-transform duration-300 origin-right group-hover:scale-x-100 group-hover:origin-left",
-                isActive(item.path) && item.path !== '/' ? "scale-x-100" : ""
-              )} />
-            </Link>
-          ))}
+        <nav className="hidden md:flex items-center gap-12">
+          <div className="flex items-center gap-8">
+            {[
+              { name: t.nav.home, path: '/' },
+              { name: t.nav.treatments, path: '/behandlingar' },
+              { name: t.nav.about, path: '/om-oss' },
+              { name: t.nav.contact, path: '/kontakt' },
+            ].map((item) => (
+              <Link
+                key={item.path}
+                href={item.path}
+                className={cn(
+                  "text-sm uppercase tracking-widest font-medium transition-all duration-300 relative group py-2",
+                  isActive(item.path) && item.path !== '/' ? "text-[var(--primary)]" : "text-gray-600 hover:text-[var(--primary)]"
+                )}
+              >
+                {item.name}
+                <span className={cn(
+                  "absolute bottom-0 left-0 w-full h-[1px] bg-[var(--primary)] transform scale-x-0 transition-transform duration-300 origin-right group-hover:scale-x-100 group-hover:origin-left",
+                  isActive(item.path) && item.path !== '/' ? "scale-x-100" : ""
+                )} />
+              </Link>
+            ))}
+          </div>
 
-          <div className="h-6 w-[1px] bg-gray-200 mx-2" />
+          <div className="h-6 w-[1px] bg-gray-200" />
 
-          <ThemeSelector />
-
-          <Link href="/book">
-            <div className="relative overflow-hidden bg-[var(--primary)] text-white shadow-lg shadow-[var(--primary)]/20 rounded-full px-8 py-3 font-medium transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 group">
-              <span className="relative z-10">Boka Tid</span>
-              <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full transition-transform duration-500 group-hover:translate-x-full" />
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
+              <ThemeSelector />
+              <LanguageSelector />
             </div>
-          </Link>
+
+            <Link href="/book">
+              <div className="relative overflow-hidden bg-[var(--primary)] text-white shadow-lg shadow-[var(--primary)]/20 rounded-full px-8 py-3 font-medium transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 group">
+                <span className="relative z-10">{t.nav.book}</span>
+                <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full transition-transform duration-500 group-hover:translate-x-full" />
+              </div>
+            </Link>
+          </div>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -112,10 +122,10 @@ export const Navbar = () => {
           >
             <div className="container-custom py-8 flex flex-col space-y-6">
               {[
-                { name: 'Hem', path: '/' },
-                { name: 'Behandlingar', path: '/behandlingar' },
-                { name: 'Om Oss', path: '/om-oss' },
-                { name: 'Kontakt', path: '/kontakt' },
+                { name: t.nav.home, path: '/' },
+                { name: t.nav.treatments, path: '/behandlingar' },
+                { name: t.nav.about, path: '/om-oss' },
+                { name: t.nav.contact, path: '/kontakt' },
               ].map((item, i) => (
                 <motion.div
                   key={item.path}
@@ -134,13 +144,16 @@ export const Navbar = () => {
               ))}
 
               <div className="flex items-center justify-between px-2 py-4 border-b border-gray-100">
-                <span className="text-lg font-medium text-gray-600">Välj Tema</span>
-                <ThemeSelector />
+                <span className="text-lg font-medium text-gray-600">{t.nav.selectTheme}</span>
+                <div className="flex gap-2">
+                  <ThemeSelector />
+                  <LanguageSelector />
+                </div>
               </div>
 
               <Link href="/book" onClick={() => setIsMobileMenuOpen(false)} className="w-full pt-4">
                 <div className="w-full bg-[var(--primary)] text-white text-center py-4 rounded-xl text-xl font-bold shadow-lg">
-                  Boka Tid
+                  {t.nav.book}
                 </div>
               </Link>
             </div>

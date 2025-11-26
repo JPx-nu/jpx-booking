@@ -1,6 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { FrozenRoute } from './FrozenRoute';
 
 export const PageTransition = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname();
@@ -15,7 +16,9 @@ export const PageTransition = ({ children }: { children: React.ReactNode }) => {
                 transition={{ duration: 0.4, ease: "easeInOut" }}
                 className="flex-1 w-full"
             >
-                {children}
+                <FrozenRoute>
+                    {children}
+                </FrozenRoute>
             </motion.div>
         </AnimatePresence>
     );

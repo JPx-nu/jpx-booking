@@ -1,67 +1,81 @@
+"use client";
 import Link from 'next/link';
 import { Facebook, Instagram, Mail, MapPin, Phone } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const Footer = () => {
+    const { t } = useLanguage();
     return (
-        <footer className="bg-[var(--foreground)] text-[var(--background)] pt-16 pb-8">
-            <div className="container-custom grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <footer className="bg-[var(--foreground)] text-[var(--background)] pt-0 pb-10">
+            <div className="container-custom grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
                 {/* Brand Section */}
-                <div className="space-y-6">
-                    <h3 className="text-2xl font-serif font-bold text-[var(--primary)]">Skönhetssalong</h3>
-                    <p className="text-gray-400 leading-relaxed">
-                        Your destination for premium beauty treatments.
-                        We specialize in nails, lashes, and personalized care.
-                    </p>
-                    <div className="flex gap-4">
-                        <Link href="https://www.facebook.com/skonhetspalatset/" target="_blank" className="hover:text-[var(--primary)] transition-colors">
+                <div className="space-y-8">
+                    <div className="space-y-4">
+                        <h3 className="text-3xl font-serif font-bold text-[var(--primary)]">{t.footer.brand}</h3>
+                        <p className="text-gray-400 leading-relaxed max-w-xs font-light">
+                            {t.footer.aboutText}
+                        </p>
+                    </div>
+                    <div className="flex gap-6">
+                        <Link href="https://www.facebook.com/" target="_blank" className="text-gray-400 hover:text-[var(--primary)] transition-colors hover:scale-110 transform duration-300">
                             <Facebook size={24} />
                         </Link>
-                        <Link href="https://www.instagram.com/skonhetspalatset/" target="_blank" className="hover:text-[var(--primary)] transition-colors">
+                        <Link href="https://www.instagram.com/" target="_blank" className="text-gray-400 hover:text-[var(--primary)] transition-colors hover:scale-110 transform duration-300">
                             <Instagram size={24} />
                         </Link>
                     </div>
                 </div>
 
                 {/* Contact Info */}
-                <div className="space-y-6">
-                    <h4 className="text-lg font-bold uppercase tracking-wider">Kontakta Oss</h4>
-                    <ul className="space-y-4 text-gray-300">
-                        <li className="flex items-start gap-3">
-                            <MapPin className="text-[var(--primary)] shrink-0" size={20} />
-                            <span>Central Location<br />City Center</span>
+                <div className="space-y-8">
+                    <h4 className="text-sm font-bold uppercase tracking-[0.2em] text-[var(--primary)]">{t.footer.contactTitle}</h4>
+                    <ul className="space-y-6 text-gray-300 font-light">
+                        <li className="flex items-start gap-4 group">
+                            <div className="p-2 rounded-full bg-white/5 group-hover:bg-[var(--primary)]/20 transition-colors">
+                                <MapPin className="text-[var(--primary)] shrink-0" size={18} />
+                            </div>
+                            <span className="group-hover:text-white transition-colors">{t.footer.location}<br />{t.footer.location2}</span>
                         </li>
-                        <li className="flex items-center gap-3">
-                            <Phone className="text-[var(--primary)] shrink-0" size={20} />
-                            <a href="tel:072-3122090" className="hover:text-white">072 - 312 20 90</a>
+                        <li className="flex items-center gap-4 group">
+                            <div className="p-2 rounded-full bg-white/5 group-hover:bg-[var(--primary)]/20 transition-colors">
+                                <Phone className="text-[var(--primary)] shrink-0" size={18} />
+                            </div>
+                            <a href="tel:070-0000000" className="hover:text-white transition-colors">070 - 000 00 00</a>
                         </li>
-                        <li className="flex items-center gap-3">
-                            <Mail className="text-[var(--primary)] shrink-0" size={20} />
-                            <a href="mailto:info@skonhetspalatset.com" className="hover:text-white">info@skonhetspalatset.com</a>
+                        <li className="flex items-center gap-4 group">
+                            <div className="p-2 rounded-full bg-white/5 group-hover:bg-[var(--primary)]/20 transition-colors">
+                                <Mail className="text-[var(--primary)] shrink-0" size={18} />
+                            </div>
+                            <a href="mailto:info@example.com" className="hover:text-white transition-colors">info@example.com</a>
                         </li>
                     </ul>
                 </div>
 
                 {/* Opening Hours */}
-                <div className="space-y-6">
-                    <h4 className="text-lg font-bold uppercase tracking-wider">Öppettider</h4>
-                    <div className="space-y-2 text-gray-300">
-                        <div className="flex justify-between border-b border-gray-800 pb-2">
-                            <span>Måndag - Lördag</span>
-                            <span>09:00 - 21:00</span>
+                <div className="space-y-8">
+                    <h4 className="text-sm font-bold uppercase tracking-[0.2em] text-[var(--primary)]">{t.footer.hoursTitle}</h4>
+                    <div className="space-y-4 text-gray-300 font-light">
+                        <div className="flex justify-between items-center border-b border-white/10 pb-3">
+                            <span>{t.footer.monSat}</span>
+                            <span className="font-medium text-white">09:00 - 21:00</span>
                         </div>
-                        <div className="flex justify-between border-b border-gray-800 pb-2">
-                            <span>Söndag</span>
-                            <span>Stängt</span>
+                        <div className="flex justify-between items-center border-b border-white/10 pb-3">
+                            <span>{t.footer.sunday}</span>
+                            <span className="text-[var(--primary)]">{t.footer.closed}</span>
                         </div>
                     </div>
-                    <p className="text-sm text-gray-500 mt-4">
-                        * Öppet alla dagar efter tidsbokning.
+                    <p className="text-xs text-gray-500 mt-6 italic">
+                        {t.footer.bookingNote}
                     </p>
                 </div>
             </div>
 
-            <div className="container-custom border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
-                <p>© {new Date().getFullYear()} Skönhetssalong. All rights reserved.</p>
+            <div className="container-custom border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500 font-light">
+                <p>© {new Date().getFullYear()} {t.footer.brand}. {t.footer.rights}</p>
+                <div className="flex gap-6">
+                    <Link href="#" className="hover:text-white transition-colors">{t.footer.privacy}</Link>
+                    <Link href="#" className="hover:text-white transition-colors">{t.footer.terms}</Link>
+                </div>
             </div>
         </footer>
     );

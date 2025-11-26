@@ -108,7 +108,8 @@ body {
 .container-custom {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 /* Glassmorphism Utilities */
@@ -124,4 +125,10 @@ body {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes shine {
+  100% {
+    transform: translateX(100%);
+  }
 }

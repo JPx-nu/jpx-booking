@@ -1,62 +1,72 @@
 "use client";
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Star } from 'lucide-react';
 import Link from 'next/link';
-
-const categories = [
-    {
-        id: "naglar",
-        title: "Naglar",
-        description: "Handvård och nagelförlängning av högsta kvalitet.",
-        items: [
-            { name: "Gellack", price: "495 kr", desc: "Permanent lackning som håller i 3-4 veckor." },
-            { name: "Gellack Återbesök", price: "695 kr", desc: "Borttagning av gammalt material och ny lackning." },
-            { name: "Nagelförstärkning Naturell/Färg", price: "550 kr", desc: "Förstärkning av egen nagel." },
-            { name: "Nagelförstärkning MASTER", price: "750 kr", desc: "Avancerad förstärkning hos Master Stylist." },
-            { name: "Nagelförlängning Naturell", price: "800 kr", desc: "Förlängning med mall eller tipp." },
-            { name: "Nagelförlängning Färg/Glitter", price: "900 kr", desc: "Förlängning med valfri färg eller glitter." },
-            { name: "Nagelförlängning Fransk/Ombre", price: "1000 kr", desc: "Klassisk fransk eller trendig ombre." },
-            { name: "Återbesök Naturell", price: "550 kr", desc: "Påfyllning av utväxt." },
-            { name: "Återbesök Färg/Glitter", price: "650 kr", desc: "Påfyllning med ny design." },
-            { name: "Nail Art (Enkel)", price: "Ingår", desc: "Enklare dekor på 1-2 naglar." },
-            { name: "Nail Art (Avancerad)", price: "350 kr", desc: "Handmålad design eller stenar." },
-        ]
-    },
-    {
-        id: "fransar",
-        title: "Fransar & Bryn",
-        description: "Rama in ditt ansikte med perfekta fransar och bryn.",
-        items: [
-            { name: "Lashlift inkl. färg & keratin", price: "695 kr", desc: "Permanent böjning av egna fransar." },
-            { name: "Browlift inkl. färg & keratin", price: "695 kr", desc: "Formning och lyft av ögonbryn." },
-            { name: "Kombo Lashlift & Browlift", price: "1195 kr", desc: "Det ultimata lyftet för hela ansiktet." },
-            { name: "Färgning av Fransar", price: "250 kr", desc: "" },
-            { name: "Färgning & Formning av Bryn", price: "350 kr", desc: "" },
-            { name: "Volymfransar Nytt Set", price: "1295 kr", desc: "Fylliga, dramatiska fransar." },
-            { name: "Volymfransar Påfyllning", price: "750 kr", desc: "Inom 3-4 veckor." },
-            { name: "Singelfransar Nytt Set", price: "1095 kr", desc: "Naturligt resultat, en frans per egen frans." },
-            { name: "Singelfransar Påfyllning", price: "650 kr", desc: "Inom 3-4 veckor." },
-        ]
-    },
-    {
-        id: "makeup",
-        title: "Makeup & Övrigt",
-        description: "För speciella tillfällen eller vardagslyx.",
-        items: [
-            { name: "Festmakeup", price: "850 kr", desc: "Hållbar makeup för fest och event." },
-            { name: "Brudmakeup", price: "1500 kr", desc: "Inklusive konsultation." },
-            { name: "Håltagning Öron (per hål)", price: "199 kr", desc: "Säkert och sterilt." },
-            { name: "Tandsmycke", price: "450 kr", desc: "Swarovski-kristall." },
-        ]
-    }
-];
+import { useLanguage } from '@/contexts/LanguageContext';
+import { cn } from '@/lib/utils';
 
 export default function ServicesPage() {
+    const { t } = useLanguage();
+    const [activeTab, setActiveTab] = useState("naglar");
+
+    const categories = [
+        {
+            id: "naglar",
+            title: t.treatments.categories.nails.title,
+            description: t.treatments.categories.nails.desc,
+            items: [
+                { name: t.treatments.categories.nails.items.gellack.name, price: "495 kr", desc: t.treatments.categories.nails.items.gellack.desc },
+                { name: t.treatments.categories.nails.items.gellackRefill.name, price: "695 kr", desc: t.treatments.categories.nails.items.gellackRefill.desc },
+                { name: t.treatments.categories.nails.items.reinforce.name, price: "550 kr", desc: t.treatments.categories.nails.items.reinforce.desc },
+                { name: t.treatments.categories.nails.items.reinforceMaster.name, price: "750 kr", desc: t.treatments.categories.nails.items.reinforceMaster.desc, popular: true },
+                { name: t.treatments.categories.nails.items.extensionNatural.name, price: "800 kr", desc: t.treatments.categories.nails.items.extensionNatural.desc },
+                { name: t.treatments.categories.nails.items.extensionColor.name, price: "900 kr", desc: t.treatments.categories.nails.items.extensionColor.desc },
+                { name: t.treatments.categories.nails.items.extensionFrench.name, price: "1000 kr", desc: t.treatments.categories.nails.items.extensionFrench.desc },
+                { name: t.treatments.categories.nails.items.refillNatural.name, price: "550 kr", desc: t.treatments.categories.nails.items.refillNatural.desc },
+                { name: t.treatments.categories.nails.items.refillColor.name, price: "650 kr", desc: t.treatments.categories.nails.items.refillColor.desc },
+                { name: t.treatments.categories.nails.items.nailArtSimple.name, price: t.treatments.categories.nails.items.nailArtSimple.price, desc: t.treatments.categories.nails.items.nailArtSimple.desc },
+                { name: t.treatments.categories.nails.items.nailArtAdvanced.name, price: "350 kr", desc: t.treatments.categories.nails.items.nailArtAdvanced.desc },
+            ]
+        },
+        {
+            id: "fransar",
+            title: t.treatments.categories.lashes.title,
+            description: t.treatments.categories.lashes.desc,
+            items: [
+                { name: t.treatments.categories.lashes.items.lashlift.name, price: "695 kr", desc: t.treatments.categories.lashes.items.lashlift.desc, popular: true },
+                { name: t.treatments.categories.lashes.items.browlift.name, price: "695 kr", desc: t.treatments.categories.lashes.items.browlift.desc },
+                { name: t.treatments.categories.lashes.items.combo.name, price: "1195 kr", desc: t.treatments.categories.lashes.items.combo.desc, popular: true },
+                { name: t.treatments.categories.lashes.items.tintLashes.name, price: "250 kr", desc: t.treatments.categories.lashes.items.tintLashes.desc },
+                { name: t.treatments.categories.lashes.items.tintBrows.name, price: "350 kr", desc: t.treatments.categories.lashes.items.tintBrows.desc },
+                { name: t.treatments.categories.lashes.items.volumeNew.name, price: "1295 kr", desc: t.treatments.categories.lashes.items.volumeNew.desc },
+                { name: t.treatments.categories.lashes.items.volumeRefill.name, price: "750 kr", desc: t.treatments.categories.lashes.items.volumeRefill.desc },
+                { name: t.treatments.categories.lashes.items.singleNew.name, price: "1095 kr", desc: t.treatments.categories.lashes.items.singleNew.desc },
+                { name: t.treatments.categories.lashes.items.singleRefill.name, price: "650 kr", desc: t.treatments.categories.lashes.items.singleRefill.desc },
+            ]
+        },
+        {
+            id: "makeup",
+            title: t.treatments.categories.makeup.title,
+            description: t.treatments.categories.makeup.desc,
+            items: [
+                { name: t.treatments.categories.makeup.items.party.name, price: "850 kr", desc: t.treatments.categories.makeup.items.party.desc },
+                { name: t.treatments.categories.makeup.items.bridal.name, price: "1500 kr", desc: t.treatments.categories.makeup.items.bridal.desc },
+                { name: t.treatments.categories.makeup.items.piercing.name, price: "199 kr", desc: t.treatments.categories.makeup.items.piercing.desc },
+                { name: t.treatments.categories.makeup.items.toothGem.name, price: "450 kr", desc: t.treatments.categories.makeup.items.toothGem.desc },
+            ]
+        }
+    ];
+
+    const activeCategory = categories.find(c => c.id === activeTab) || categories[0];
+
     return (
         <div className="min-h-screen bg-[var(--background)]">
             {/* Header */}
             <section className="relative py-32 bg-[var(--secondary)] overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
+                <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[var(--background)] to-transparent" />
+
                 <div className="container-custom relative z-10 text-center space-y-6">
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
@@ -64,7 +74,7 @@ export default function ServicesPage() {
                         transition={{ duration: 0.8 }}
                         className="text-5xl md:text-7xl font-serif font-bold text-[var(--foreground)]"
                     >
-                        Våra Behandlingar
+                        {t.treatments.title}
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -72,72 +82,123 @@ export default function ServicesPage() {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="text-xl text-gray-600 max-w-2xl mx-auto font-light"
                     >
-                        Vi erbjuder ett brett utbud av skönhetsbehandlingar. Hitta det som passar dig bäst och boka din tid idag.
+                        {t.treatments.subtitle}
                     </motion.p>
                 </div>
             </section>
 
             {/* Menu Sections */}
-            <div className="container-custom py-20 space-y-32">
-                {categories.map((category, catIndex) => (
-                    <motion.section
-                        key={category.id}
-                        id={category.id}
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8 }}
-                        className="scroll-mt-32"
+            <div className="container-custom py-20 min-h-[800px]">
+                {/* Tabs */}
+                <div className="flex flex-wrap justify-center gap-4 mb-16">
+                    {categories.map((category) => (
+                        <button
+                            key={category.id}
+                            onClick={() => setActiveTab(category.id)}
+                            className={cn(
+                                "px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 relative",
+                                activeTab === category.id
+                                    ? "bg-[var(--primary)] text-white shadow-lg scale-105"
+                                    : "bg-white border border-gray-200 text-gray-600 hover:border-[var(--primary)] hover:text-[var(--primary)]"
+                            )}
+                        >
+                            {category.title}
+                            {activeTab === category.id && (
+                                <motion.div
+                                    layoutId="activeTab"
+                                    className="absolute inset-0 rounded-full bg-[var(--primary)] -z-10"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                />
+                            )}
+                        </button>
+                    ))}
+                </div>
+
+                {/* Content */}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeCategory.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.4 }}
+                        className="max-w-7xl mx-auto"
                     >
-                        <div className="text-center mb-16 space-y-4">
-                            <h2 className="text-4xl md:text-5xl font-serif font-bold text-[var(--primary)] relative inline-block">
-                                {category.title}
-                                <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-12 h-1 bg-[var(--primary)] rounded-full opacity-30" />
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl font-serif font-bold text-[var(--foreground)] mb-4">
+                                {activeCategory.title}
                             </h2>
-                            <p className="text-gray-500 text-lg">{category.description}</p>
+                            <p className="text-gray-500">{activeCategory.description}</p>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-x-16 gap-y-10 max-w-5xl mx-auto">
-                            {category.items.map((item, index) => (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {activeCategory.items.map((item, index) => (
                                 <motion.div
                                     key={index}
-                                    initial={{ opacity: 0, x: -10 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.05 }}
-                                    className="group"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                                    className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 flex flex-col group hover:shadow-md transition-all duration-300 relative overflow-hidden"
                                 >
-                                    <div className="flex items-baseline justify-between border-b border-gray-200 pb-2 mb-2 relative">
-                                        <h3 className="text-xl font-medium text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors">
-                                            {item.name}
-                                        </h3>
-                                        <div className="flex-1 mx-4 border-b border-dotted border-gray-300 relative top-[-5px]" />
-                                        <span className="text-xl font-bold text-[var(--primary)] whitespace-nowrap">
-                                            {item.price}
-                                        </span>
-                                        <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[var(--primary)] transition-all duration-500 group-hover:w-full" />
+                                    {/* Shine Effect */}
+                                    <div className="absolute inset-0 -translate-x-full group-hover:animate-[shine_1s_ease-in-out] bg-gradient-to-r from-transparent via-white/50 to-transparent z-10 pointer-events-none" />
+
+                                    <div className="mb-6 relative z-20">
+                                        <div className="flex items-start justify-between gap-2 mb-2 min-h-[3.5rem]">
+                                            <h3 className="text-xl font-medium text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors line-clamp-2">
+                                                {item.name}
+                                            </h3>
+                                            {/* @ts-ignore */}
+                                            {item.popular && (
+                                                <span className="shrink-0 flex items-center gap-1 text-[10px] font-bold text-amber-500 bg-amber-50 px-2 py-1 rounded-full uppercase tracking-wider">
+                                                    <Star size={10} fill="currentColor" /> Popular
+                                                </span>
+                                            )}
+                                        </div>
+                                        <p className="text-gray-500 font-light text-sm min-h-[2.5rem] line-clamp-2">
+                                            {item.desc || " "}
+                                        </p>
                                     </div>
-                                    {item.desc && (
-                                        <p className="text-sm text-gray-500 font-light italic">{item.desc}</p>
-                                    )}
+
+                                    <div className="mt-auto relative z-20">
+                                        <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-100 to-transparent mb-6" />
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-xl font-bold text-[var(--primary)]">
+                                                {item.price}
+                                            </span>
+                                            <Link href="/book">
+                                                <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-[var(--primary)] group-hover:text-white transition-all duration-300 transform group-hover:rotate-[-45deg] relative z-20">
+                                                    <ArrowRight size={18} />
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    </div>
                                 </motion.div>
                             ))}
                         </div>
-                    </motion.section>
-                ))}
+
+
+                    </motion.div>
+                </AnimatePresence>
             </div>
 
             {/* CTA */}
-            <section className="py-20 bg-[var(--accent)] text-center">
+            <motion.section
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="py-24 bg-gradient-to-b from-[var(--background)] to-[var(--accent)] text-center"
+            >
                 <div className="container-custom">
-                    <h2 className="text-3xl font-serif font-bold mb-8">Hittat något du gillar?</h2>
+                    <h2 className="text-3xl font-serif font-bold mb-8">{t.treatments.cta.title}</h2>
                     <Link href="/book">
                         <div className="bg-[var(--primary)] text-white hover:bg-[var(--primary)]/90 px-10 py-4 text-lg rounded-full shadow-xl inline-flex items-center gap-2 transition-transform hover:scale-105 cursor-pointer">
-                            Boka Tid Nu <ArrowRight size={20} />
+                            {t.treatments.cta.button} <ArrowRight size={20} />
                         </div>
                     </Link>
                 </div>
-            </section>
+            </motion.section>
         </div>
     );
 }
